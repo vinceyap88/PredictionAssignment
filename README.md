@@ -18,4 +18,5 @@ install.package("randomForest")
 
 After the execution of [PMLProj01.Rmd](https://github.com/vinceyap88/PredictionAssignment/blob/master/PMLProj01.Rmd), the output report will be generated as [PMLProj01.html](https://github.com/vinceyap88/PredictionAssignment/blob/master/PMLProj01.html)
 
+## Viewing Gh-pages
 The gh-pages of the generated report can be view at [PredictionAssignment](http://vinceyap88.github.io/PredictionAssignment/)
