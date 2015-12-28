@@ -65,7 +65,7 @@ str(nzv, vec.len=2)
 nzv[nzv[,"zeroVar"]+nzv[,"nzv"]>0,]
 ```
 ##Building Model With Classification Tree
-The result showed that the 4 preditors of this model are roll_belt, pitch_forearm, magnet_dumbbell_y and roll_forearm variables. It has taken approximately 15 seconds to build this model but with the poor accuracy(0.4488).
+The result showed that the 4 preditors of this model are roll_belt, pitch_forearm, magnet_dumbbell_y and roll_forearm variables. It has taken approximately 16 seconds to build this model.
 ```{r}
 time1<-proc.time()
 ctreeFit<-train(classe~.,method="rpart",data=wleTrainSS)
@@ -76,12 +76,13 @@ ctreeTime
 print(ctreeFit$finalModel)
 rattle::fancyRpartPlot(ctreeFit$finalModel)
 ```
-#Cross-Validation With Classification Tree Model
+##Cross-Validation With Classification Tree Model
+This classification tree model has the poor accuracy(0.4488).
 ```{r}
 confusionMatrix(wleTestSS$classe, predict(ctreeFit, wleTestSS))
 ```
 ##Building Model With Random Forest
-The result showed that it has taken approximately 40 seconds to build this model but with the higher accuracy(0.9947).
+The result showed that it has taken approximately 108 seconds to build this model. 
 ```{r}
 library(randomForest)
 time1<-proc.time()
@@ -95,10 +96,12 @@ head(getTree(rforestFit,k=2))
 # list out the variable importance
 varImpPlot(rforestFit)
 ```
-#Cross-Validation With Random Forest Model
+##Cross-Validation With Random Forest Model
+This random forest model has the high accuracy(0.9947).
 ```{r}
 result=predict(rforestFit, wleTestSS)
 cm<-confusionMatrix(wleTestSS$classe, result)
+cm
 ```
 
 ##Expected Out-Of-Sample Error and Estimated Sample Error
@@ -113,7 +116,7 @@ estSampleError<-1-(sum(result==wleTestSS$classe)/length(result))
 estSampleError
 ```
 ##Choosing the Final Model for the Prediction
-Considering the high accuracy and the small sample error by ignoring the speed factor, I have decided to use the Random Forest Model to perform the prediction on the testing set.
+Considering the high accuracy and the small sample error, I have decided to use the Random Forest Model to perform the prediction on the testing set.
 ```{r}
 testingPred<-predict(rforestFit, wleValidate)
 testingPred
